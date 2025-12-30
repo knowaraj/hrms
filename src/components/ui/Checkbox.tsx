@@ -41,35 +41,15 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({
                     ref={ref}
                     id={checkboxId}
                     checked={checked}
+                <AntCheckbox
+                    id={checkboxId}
+                    checked={checked}
                     disabled={disabled}
                     required={required}
-                    className="sr-only"
-                    {...props}
+                    indeterminate={indeterminate}
+                    {...(props as any)}
+                    ref={ref as any}
                 />
-
-                <label
-                    htmlFor={checkboxId}
-                    className={cn(
-                        "peer shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground cursor-pointer transition-colors",
-                        sizeClasses?.[size ?? "default"],
-                        checked && "bg-primary text-primary-foreground border-primary",
-                        indeterminate && "bg-primary text-primary-foreground border-primary",
-                        error && "border-destructive",
-                        disabled && "cursor-not-allowed opacity-50"
-                    )}
-                >
-                    {checked && !indeterminate && (
-                        <Check className="h-3 w-3 text-current flex items-center justify-center" />
-                    )}
-                    {indeterminate && (
-                        <Minus className="h-3 w-3 text-current flex items-center justify-center" />
-                    )}
-                </label>
-            </div>
-            {(label || description || error) && (
-                <div className="flex-1 space-y-1">
-                    {label && (
-                        <label
                             htmlFor={checkboxId}
                             className={cn(
                                 "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer",

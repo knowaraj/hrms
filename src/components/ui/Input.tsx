@@ -1,4 +1,5 @@
 import React from "react";
+import { Input as AntInput } from "antd";
 import { cn } from "../../utils/cn";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -21,7 +22,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
     const inputId = id || `input-${Math.random()?.toString(36)?.substr(2, 9)}`;
 
     // Base input classes
-    const baseInputClasses = "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
+    const baseInputClasses = "h-10 w-full rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground";
 
     // Checkbox-specific styles
     if (type === "checkbox") {
@@ -71,17 +72,22 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
                 </label>
             )}
 
-            <input
-                type={type}
-                className={cn(
-                    baseInputClasses,
-                    error && "border-destructive focus-visible:ring-destructive",
-                    className
-                )}
-                ref={ref}
-                id={inputId}
-                {...props}
-            />
+            {type === 'password' ? (
+                <AntInput.Password
+                    className={cn(baseInputClasses, error && "border-destructive", className)}
+                    id={inputId}
+                    {...(props as any)}
+                    ref={ref as any}
+                />
+            ) : (
+                <AntInput
+                    type={type}
+                    className={cn(baseInputClasses, error && "border-destructive", className)}
+                    id={inputId}
+                    {...(props as any)}
+                    ref={ref as any}
+                />
+            )}
 
             {description && !error && (
                 <p className="text-sm text-muted-foreground">

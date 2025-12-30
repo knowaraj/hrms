@@ -13,7 +13,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // Initialize theme from localStorage or system preference
     const [theme, setTheme] = useState<Theme>(() => {
         // Check localStorage first
-        const savedTheme = localStorage.getItem('theme') as Theme | null;
+        const savedTheme = localStorage.getItem('hrmstheme') as Theme | null;
         if (savedTheme === 'light' || savedTheme === 'dark') {
             return savedTheme;
         }
@@ -34,7 +34,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     useEffect(() => {
         document.documentElement.classList.remove('light', 'dark');
         document.documentElement.classList.add(theme);
-        localStorage.setItem('theme', theme);
+        localStorage.setItem('hrmstheme', theme);
     }, [theme]);
 
     return (
